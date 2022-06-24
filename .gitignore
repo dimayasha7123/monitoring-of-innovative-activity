@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+bin
+lib
+geckodriver.log
+pyvenv.cfg
+
