@@ -15,6 +15,13 @@
       "text": "post-content"
     },
     {
+      "URL": "https://ria56.ru/",
+      "news": "https://ria56.ru/posts/",
+      "title": "entry-title",
+      "date": "entry-date",
+      "text": "entry-content"
+    },
+    {
       "URL": "https://orennc.ru/",
       "news": "https://orennc.ru/?page_id=30",
       "title": "tg-page-header__title",
@@ -23,7 +30,7 @@
     },
     {
       "URL": "https://orenburg-cci.ru/",
-      "news": "https://orenburg-cci.ru/",
+      "news": "https://orenburg-cci.ru/novosti",
       "title": "news-title",
       "date": "news-date",
       "text": "article-condition"
@@ -83,20 +90,6 @@
       "title": "https://sbp-invertor.ru/",
       "date": "published",
       "text": "articleBody"
-    },
-    {
-      "URL": "nr",
-      "news": "asd",
-      "title": "dsa",
-      "date": "aas",
-      "text": "dds"
-    },
-    {
-      "URL": "\u043a\u0442\u043e",
-      "news": "12qdq",
-      "title": "qwe",
-      "date": "1244",
-      "text": "\u044f"
     }
   ]
 }
