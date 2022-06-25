@@ -5,41 +5,33 @@
     <title>Title</title>
 </head>
 <body>
-
-<a href="http://127.0.0.1:8000/admin/">
-               Панель Администрации
-            </a>
 {% if user.is_authenticated %}
-<a href="{% url 'add_site' %}">
-               Добавить сайт
-            </a>
+    <a href="{% url 'logout' %}">
+        Выход
+    </a>
+
+{% else %}
+    <a href="{% url 'log' %}">
+        Вход
+    </a>
 {% endif %}
+{% if user.is_authenticated %}
+    <a href="{% url 'add_site' %}">
+        Добавить сайт
+    </a>
+{% endif %}
+<a href="{% url 'table' %}">
+    Таблицы
+</a>
+<a href="{% url 'company' %}">
+    Компании
+</a>
 
-<table >
-            <thead>
-            <tr>
-                <td>Название Организации</td>
-                <td>Категория</td>
-                <td>Контакты</td>
 
-                <td>О Организации</td>
-            </tr>
-            </thead>
-            {% for i in company %}
-                <tbody>
-                <tr>
-                    <td>
-                        {{ i.name }}
-                    </td>
-                    <td>{{ i.category }}</td>
-                    <td>email:{{ i.email }},телефон:{{ i.phone }}</td>
-                    <td>{{ i.about }}  </td>
-                    </td>
-
-                </tr>
-                </tbody>
-            {% endfor %}
-        </table>
-
+<form action="{% url 'main' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+</form>
 </body>
 </html>

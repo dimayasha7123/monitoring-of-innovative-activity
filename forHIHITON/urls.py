@@ -15,12 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from project.views import main_page,add_site
+from django.contrib.auth.views import LogoutView
+from project.views import table, main_page, add_site, TableUpdateView, delete_table, LoginViews, delete_company, \
+    TableAddView, CompanyAddView,company
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
-
+    path('admin/', admin.site.urls, ),
     path('home/', main_page, name='main'),
-    path('add_site/',add_site, name='add_site')
+    path('add_site/', add_site, name='add_site'),
+    path('update_table/<int:pk>', TableUpdateView.as_view(), name='update_table'),
+    path('table/', table, name='table'),
+    path('table/add/', TableAddView.as_view(), name='add_table'),
+    path('table/del/<int:id>', delete_table, name='del_table'),
+    path('log/', LoginViews.as_view(), name='log'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('update_company/<int:pk>', TableUpdateView.as_view(), name='update_company'),
+    path('company/', company, name='company'),
+    path('company/del/<int:pk>', delete_company, name='del_company'),
+    path('company/add/', CompanyAddView.as_view(), name='add_company'),
 ]
-
