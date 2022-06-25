@@ -2,6 +2,8 @@ from datetime import datetime
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import redis
+
 
 company_name = 'МЦЭ-Инжиниринг'
 url = 'https://mcee.ru/tpost/of551zcy81-20-maya-2021'
@@ -16,3 +18,5 @@ def make_screenshot(company_name: str, url: str) -> bool:
     return True
 
 make_screenshot(company_name, url)
+
+#screenshot(f'./{company_name}_{datetime.now()}.png')
