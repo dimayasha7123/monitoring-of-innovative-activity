@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'main_page.html' %}
+    <meta charset="UTF-8">
+    {% block name %}
+        <title>Title</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <td>Название Сайта</td>
+
+        </tr>
+        </thead>
+        {% for i in sites %}
+            <tbody>
+            <tr>
+                <td>
+                    <a href="{{ i }}">{{ i }}</a>
+                </td>
+
+
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    {% if user.is_authenticated %}
+        <a href="{% url 'add_site' %}">
+            Добавить
+        </a>
+    {% endif %}
+
+
+{% endblock %}
+</body>
+</html>

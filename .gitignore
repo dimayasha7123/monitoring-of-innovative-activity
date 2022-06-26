@@ -1,6 +1,6 @@
-# created by virtualenv automatically
-bin
-lib
+.idea
 geckodriver.log
 pyvenv.cfg
+bin
+lib
 

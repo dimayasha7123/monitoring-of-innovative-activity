@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'main_page.html' %}
+    <meta charset="UTF-8">
+    {% block name %}
+    <title>Title</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    {% if request.user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+        <input type="submit" value="Изменить">
+    </form>
+            {% else %}
+            <meta http-equiv="refresh" content="0;{% url 'table' %}">
+            {% endif %}
+
+{% endblock %}
+</body>
+</html>
