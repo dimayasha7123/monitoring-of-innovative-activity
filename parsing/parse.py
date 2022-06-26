@@ -26,6 +26,7 @@ def str_to_date(text):
     return d.strftime("%d.%m.%Y")
 
 def find_org(orgs):
+    print(orgs)
     all_orgs = Company.objects.all()
     our_orgs = []
     for s in orgs:
@@ -37,7 +38,7 @@ def find_org(orgs):
 
 def parse_and_save(url, keywords=None):
     code, result = parse(url, keywords)
-    print(result)
+    # print(result)
     if code:
         orgs = find_org(result["org"])
         for org in orgs:
@@ -134,7 +135,7 @@ def parse(url, keywords=None):
 
 
 try:
-    sites = json.load(open('../static/sites.json', encoding='utf-8'))
+    sites = json.load(open('static/sites.json', encoding='utf-8'))
 except:
     sites = {
         "sites": [
