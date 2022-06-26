@@ -14,6 +14,7 @@ pycparser==2.21
 pyOpenSSL==22.0.0
 pyparsing==3.0.9
 PySocks==1.7.1
+PyYAML==6.0
 redis==4.3.3
 selenium==4.3.0
 sniffio==1.2.0
