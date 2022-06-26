@@ -22,6 +22,8 @@ class Company(models.Model):
     about = models.TextField(verbose_name='О компании')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория',
                                  )
+    other_name = models.TextField(verbose_name='Другие варианты названий компании',blank=True,null=True
+                                  )
 
     def __str__(self):
         return self.name
