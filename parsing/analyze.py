@@ -1,17 +1,12 @@
-import spacy
+import torch
 from transformers import pipeline
 from natasha import (
     Segmenter,
     MorphVocab,
-
     NewsEmbedding,
     NewsMorphTagger,
     NewsSyntaxParser,
     NewsNERTagger,
-
-    PER,
-    NamesExtractor,
-
     Doc
 )
 
@@ -26,12 +21,16 @@ def get_orgs_from_text(text):
             orgs.append(span.normal)
     return orgs
 
-def classify(text):
+def classify(text, keywords=None):
+    if not keywords:
+        keywords = ["технологии", "импортозамещение", "инновации",
+                    "научные разработки", "патенты",
+                    "гранты", "исследования"]
     d = p(
         sequences=text,
-        candidate_labels="технологии, импортозамещение, инновации, научные разработки, патенты, гранты, исследования"
+        candidate_labels=", ".join(keywords)
     )
-    return d #orgs
+    return d["labels"][:3]
 
 
 segmenter = Segmenter()
@@ -40,9 +39,7 @@ emb = NewsEmbedding()
 morph_tagger = NewsMorphTagger(emb)
 syntax_parser = NewsSyntaxParser(emb)
 ner_tagger = NewsNERTagger(emb)
-names_extractor = NamesExtractor(morph_vocab)
 p = pipeline(
     task='zero-shot-classification',
     model='cointegrated/rubert-tiny-bilingual-nli'
 )
-
