@@ -38,8 +38,10 @@ def parse_and_save(url, keywords=None):
     from screenshots.screenshots import make_screenshot
     code, result = parse(url, keywords)
     # print(result)
+
     if code:
         orgs = find_org(result["org"])
+        print(orgs)
         for org in orgs:
             p = TableAnalyzeCompany()
             p.company_name = Company.objects.get(cat_id=org)
@@ -50,6 +52,7 @@ def parse_and_save(url, keywords=None):
             p.category = ", ".join(result["keywords"])
             make_screenshot(p.company_name, p.category, p.url)
             p.save()
+            return code, p.company_name
     else:
         print(result)
     return code, result

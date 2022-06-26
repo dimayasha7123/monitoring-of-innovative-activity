@@ -20,9 +20,10 @@ def main_page(request):
     if request.method == 'POST':
         form = Analyze(request.POST)
         if form.is_valid():
-            ok, result = parse_and_save(form.cleaned_data["URL"], form.cleaned_data["keywords"].split(','))
+            ok, comp_name = parse_and_save(form.cleaned_data["URL"], form.cleaned_data["keywords"].split(','))
+            print(comp_name)
             if ok:
-                company_name = Company.objects.get(name=result["org"][0])
+                company_name = Company.objects.get(name=comp_name)
                 zip = get_zip_by_company_name(company_name)
                 excel = getTableExcel()
                 # return redirect('table')
@@ -45,9 +46,10 @@ def getTableExcel():
     name_title_news = [x[0] for x in TableAnalyzeCompany.objects.all().values_list("name_title_news")]
     url = [x[0] for x in TableAnalyzeCompany.objects.all().values_list("url")]
     category = [x[0] for x in TableAnalyzeCompany.objects.all().values_list("category")]
+    company_name = [Company.objects.get(cat_id=x[0]) for x in TableAnalyzeCompany.objects.all().values_list("company_name")]
 
     data = pd.DataFrame(
-        {"Дата": data_news, "Название компании": name_news,
+        {"Дата": data_news, "Наименвование компании": company_name, "Название ресурса": name_news,
          "Заголовок новости": name_title_news, "Ссылка": url,
          "Категория": category})
     filename = 'files/created' + str(datetime.date(datetime.now())) + '.xlsx'

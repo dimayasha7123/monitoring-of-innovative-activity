@@ -53,14 +53,17 @@
             <div class="col-lg-8 col-md-7 col-sm-6">
                 {{ form.as_p }}
                 <button class="btn btn-secondary" type="submit">Поиск</button>
-                <br>
-                {% if zip %}
-                <a class="btn btn-secondary" href="{{ zip }}">Скачать архив</a>
-                {% endif %}
-                <br>
-                {% if excel %}
-                <a class="btn btn-secondary" href="{{ excel }}">Экспорт в Excel</a>
-                {% endif %}
+                <p>
+                    {% if zip %}
+                    <a class="btn btn-secondary" href="{{ zip }}">Скачать архив</a>
+                    {% endif %}
+                </p>
+
+                <p>
+                    {% if excel %}
+                    <a class="btn btn-secondary" href="{{ excel }}">Экспорт в Excel</a>
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@ urls = [
     #"https://ria56.ru/posts/v-abdulinskom-gorodskom-okruge-sdelan-akcent-na-modernizacii-infrastruktury-zhkx.htm"
 ]
 
+
 for s in urls:
     code, d = parse(s)
     print(d)

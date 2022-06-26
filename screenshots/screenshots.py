@@ -19,9 +19,10 @@ r = redis.StrictRedis(host=db_settings['host'], port=db_settings['port'], db=db_
 def make_screenshot(company_name: str, company_category: str, url: str) -> bool: 
     with webdriver.Firefox() as driver:
         driver.get(url)
-        place = driver.find_element(By.XPATH, f"//*[contains(text(),'{company_name}')]")
+        # place = driver.find_element(By.XPATH, f"//*[contains(text(),'{company_name}')]")
         time.sleep(0.5)
-        place_png = place.screenshot_as_png
+        place_png = driver.get_full_page_screenshot_as_png()
+        # place_png = place.screenshot_as_png
         filename = f'{company_name}_{company_category}_{datetime.now()}.PNG'
     
     with BytesIO() as output:
@@ -35,11 +36,11 @@ def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
 
 def get_zip_by_company_name(company_name: str) -> str:
     filenames = [t.decode('utf8') for t in r.keys()]
-    filtered_filenames = filenames
+    filtered_filenames = []
     
-    # for name in filtered_filenames:
-    #     if name.split('_')[0] == company_name:
-    #         filtered_filenames.append(name)
+    for name in filenames:
+        if name.split('_')[0] == company_name:
+            filtered_filenames.append(name)
 
     pipe = r.pipeline()
     
