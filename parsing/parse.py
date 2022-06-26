@@ -3,13 +3,11 @@ from bs4 import BeautifulSoup
 import json
 from urllib.parse import urlparse
 import cfscrape
-from analyze import get_orgs_from_text, classify
+from parsing.analyze import get_orgs_from_text, classify
 import dateparser
 import re
 import datetime
-
-
-
+from project.models import Company, TableAnalyzeCompany
 
 def get_site_info(url):
     name = urlparse(url).hostname
@@ -23,7 +21,35 @@ def str_to_date(text):
         if text[i].isdigit():
             break
     d = dateparser.parse(text[i:])
-    return d.strftime("%d.%m.%Y")
+    return d.strftime("%Y-%m-%d")
+
+def find_org(orgs):
+    all_orgs = Company.objects.all().values_list('cat_id', 'other_name')
+    # print(all_orgs)
+    our_orgs = []
+    for s in orgs:
+        for c in all_orgs:
+            if c[1] and s in c[1]:
+                our_orgs.append(c[0])
+    return list(set(our_orgs))
+
+
+def parse_and_save(url, keywords=None):
+    code, result = parse(url, keywords)
+    # print(result)
+    if code:
+        orgs = find_org(result["org"])
+        for org in orgs:
+            p = TableAnalyzeCompany()
+            p.company_name = Company.objects.get(cat_id=org)
+            p.url = result["URL"]
+            p.name_news =  result["name"]
+            p.name_title_news = result["title"]
+            p.date_news =  result["date"]
+            p.category = ", ".join(result["keywords"])
+            p.save()
+    else:
+        print(result)
 
 def parse(url, keywords=None):
     if not keywords:
@@ -102,7 +128,7 @@ def parse(url, keywords=None):
 
 
 try:
-    sites = json.load(open('../static/sites.json', encoding='utf-8'))
+    sites = json.load(open('static/sites.json', encoding='utf-8'))
 except:
     sites = {
         "sites": [
