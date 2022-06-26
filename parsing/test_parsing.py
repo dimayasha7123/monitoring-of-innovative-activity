@@ -7,19 +7,21 @@ urls = [
     "https://orenburg-cci.ru/znakomtes-uchebnyj-tsentr-podgotovki-buhgalterov-ogu/",
     "https://orenburg-gov.ru/news/4136/",
     "https://asi.ru/news/19083/",
-    "https://sbp-invertor.ru/our-media/novosti/ao-zavod-invertor-vstupil-v-natsproekt-proizvoditelnost-truda.html"
+    "https://sbp-invertor.ru/our-media/novosti/ao-zavod-invertor-vstupil-v-natsproekt-proizvoditelnost-truda.html",
+    "https://mineconomy.orb.ru/presscenter/news/42901/",
+    "https://www.akkermann.ru/kompaniya-akkermann-otkryla-czentr-betonnyh-tehnologij-pro_beton/",
+    "http://zbo.ru/info/news/nauchnyy-proekt-goda/",
+    "https://mz-orsk.ru/news/perspektiva-razvitiya/",
+    "https://www.ecobios.ru/ooo-innovaczionnaya-kompaniya-ekobios-poluchen-sertifikat-sootvetstviya/", #universal
+    "http://fncbst.ru/?p=11578",
+    "https://trends.rbc.ru/trends/innovation/cmrm/62a09f139a79470bf2fac6c0?page=trend&nick=innovation&from=infinityscroll"
     #"https://orenburzhie.ru/news/dve-studentki-predstavlyayut-orenburzhe-v-finale-konkursa-flagmany-obrazovaniya-studenty/",
     #"https://ria56.ru/posts/v-abdulinskom-gorodskom-okruge-sdelan-akcent-na-modernizacii-infrastruktury-zhkx.htm"
 ]
 
 for s in urls:
     code, d = parse(s)
-    if code:
-        print(classify(d["text"]))
-        orgs = get_orgs_from_text(d["text"])
-        print(orgs)
-
-    print(parse(s))
+    print(d)
 
 
 

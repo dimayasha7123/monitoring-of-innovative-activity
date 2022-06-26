@@ -65,7 +65,7 @@
     },
     {
       "URL": "https://www.akkermann.ru/",
-      "news": "https://www.akkermann.ru/",
+      "news": "https://www.akkermann.ru/news/",
       "title": ".news-single-big-title",
       "date": ".news-single-info-date",
       "text": ".news-single-content"
@@ -94,7 +94,7 @@
     {
       "URL": "https://ooo-temz.ru/",
       "news": "https://ooo-temz.ru/novosti",
-      "title": ".t225__title",
+      "title": ".t-title",
       "date": ".date-title",
       "text": ".content"
     },
