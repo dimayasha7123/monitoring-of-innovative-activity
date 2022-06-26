@@ -50,6 +50,8 @@ def parse_and_save(url, keywords=None):
             p.save()
     else:
         print(result)
+    return code
+       
 
 def parse(url, keywords=None):
     if not keywords:
