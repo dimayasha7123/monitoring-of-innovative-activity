@@ -40,11 +40,11 @@ import pandas as pd
 from datetime import datetime
 
 def getTableExcel():
-    data_news = TableAnalyzeCompany.objects.all().value_list("date_news")
-    name_news = TableAnalyzeCompany.objects.all().value_list("name_news")
-    name_title_news = TableAnalyzeCompany.objects.all().value_list("name_title_news")
-    url = TableAnalyzeCompany.objects.all().value_list("url")
-    category = TableAnalyzeCompany.objects.all().value_list("category")
+    data_news = TableAnalyzeCompany.objects.all().values_list("date_news")
+    name_news = TableAnalyzeCompany.objects.all().values_list("name_news")
+    name_title_news = TableAnalyzeCompany.objects.all().values_list("name_title_news")
+    url = TableAnalyzeCompany.objects.all().values_list("url")
+    category = TableAnalyzeCompany.objects.all().values_list("category")
 
     data = pd.DataFrame(
         {"Дата": data_news, "Название компании": name_news,
