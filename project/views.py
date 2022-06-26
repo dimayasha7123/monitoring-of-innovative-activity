@@ -47,9 +47,9 @@ def getTableExcel():
     category = TableAnalyzeCompany.objects.raw('select category from project_tableanalyzecompany')
 
     data = pd.DataFrame(
-        {TableAnalyzeCompany.date_news.verbose_name: data_news, TableAnalyzeCompany.name_news.verbose_name: name_news,
-         TableAnalyzeCompany.name_title_news.verbose_name: name_title_news, TableAnalyzeCompany.url.verbose_name: url,
-         TableAnalyzeCompany.category.verbose_name: category})
+        {"Дата": data_news, "Название компании": name_news,
+         "Заголовок новости": name_title_news, "Ссылка": url,
+         "Категория": category})
     filename = 'files/created' + str(datetime.date(datetime.now())) + '.xlsx'
     data.to_excel(filename, sheet_name='datasheet', index=False)
     return filename
