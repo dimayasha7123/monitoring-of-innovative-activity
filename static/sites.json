@@ -1,102 +1,109 @@
 {
   "sites": [
     {
+      "URL": "https://sbp-invertor.ru/",
+      "news": "https://sbp-invertor.ru/our-media/novosti.html",
+      "title": ".page-header",
+      "date": ".published",
+      "text": "p"
+    },
+    {
+      "URL": "https://orenburg-gov.ru/",
+      "news": "https://orenburg-gov.ru/news",
+      "title": "h1",
+      "date": ".news-detail__date",
+      "text": ".news-detail__detail"
+    },
+    {
+      "URL": "https://asi.ru/",
+      "news": "https://asi.ru/news",
+      "title": ".b-page__title",
+      "date": ".b-article-info__date",
+      "text": ".b-page__content"
+    },
+    {
       "URL": "https://orenburzhie.ru/",
       "news": "https://orenburzhie.ru/category/news/",
-      "title": "entry-title",
-      "date": "entry-date",
-      "text": "entry-content"
+      "title": ".entry-title",
+      "date": ".entry-date",
+      "text": ".entry-content"
     },
     {
       "URL": "https://orenburg.media/",
       "news": "https://orenburg.media/?cat=3",
-      "title": "post-title",
-      "date": "post-byline",
-      "text": "post-content"
+      "title": ".post-title",
+      "date": ".post-byline",
+      "text": ".post-content"
+    },
+    {
+      "URL": "https://ria56.ru/",
+      "news": "https://ria56.ru/posts/",
+      "title": ".entry-title",
+      "date": ".entry-date",
+      "text": ".entry-content"
     },
     {
       "URL": "https://orennc.ru/",
       "news": "https://orennc.ru/?page_id=30",
-      "title": "tg-page-header__title",
-      "date": "entry-date published",
-      "text": "entry-content"
+      "title": ".tg-page-header__title",
+      "date": ".entry-date",
+      "text": ".entry-content"
     },
     {
       "URL": "https://orenburg-cci.ru/",
-      "news": "https://orenburg-cci.ru/",
-      "title": "news-title",
-      "date": "news-date",
-      "text": "article-condition"
+      "news": "https://orenburg-cci.ru/novosti",
+      "title": ".news-title",
+      "date": ".news-date",
+      "text": ".article-condition"
     },
     {
       "URL": "https://mineconomy.orb.ru/",
       "news": "https://mineconomy.orb.ru/presscenter/news/",
-      "title": "news-detail__title",
-      "date": "news__info-value",
-      "text": "news-detail__text"
+      "title": ".news-detail__title",
+      "date": ".news__info-value",
+      "text": ".news-detail__text"
     },
     {
       "URL": "https://www.akkermann.ru/",
       "news": "https://www.akkermann.ru/",
-      "title": "news-single-big-title",
-      "date": "news-single-info-date",
-      "text": "news-single-content"
+      "title": ".news-single-big-title",
+      "date": ".news-single-info-date",
+      "text": ".news-single-content"
     },
     {
       "URL": "http://asupro.ru/",
       "news": "http://asupro.ru/o-kompanii/novosti/",
-      "title": "main_h1",
-      "date": "post_bread",
-      "text": "post_content w-richtext"
+      "title": ".main_h1",
+      "date": ".post_bread",
+      "text": ".post_content"
     },
     {
       "URL": "http://zbo.ru/",
       "news": "http://zbo.ru/info/news/",
-      "title": "introtext norder",
-      "date": "date",
-      "text": "content"
+      "title": ".introtext",
+      "date": ".date",
+      "text": ".content"
     },
     {
       "URL": "https://chermet.net/engineering-center/",
       "news": "https://chermet.net/news/",
-      "title": "news-title mb-4",
-      "date": "news-date-time fs-17 text-gray font-weight-light ",
-      "text": "news-text fs-17 text-gray font-weight-light"
+      "title": ".news-title",
+      "date": ".news-date-time",
+      "text": ".news-text"
     },
     {
       "URL": "https://ooo-temz.ru/",
       "news": "https://ooo-temz.ru/novosti",
-      "title": "t225__title t-title t-title_md",
-      "date": "date-title",
-      "text": "content"
+      "title": ".t225__title",
+      "date": ".date-title",
+      "text": ".content"
     },
     {
       "URL": "https://mz-orsk.ru/",
       "news": "https://mz-orsk.ru/news/",
-      "title": "page-title",
-      "date": "date",
-      "text": "news-detail"
-    },
-    {
-      "URL": "https://sbp-invertor.ru/",
-      "news": "https://sbp-invertor.ru/our-media/novosti.html",
-      "title": "https://sbp-invertor.ru/",
-      "date": "published",
-      "text": "articleBody"
-    },
-    {
-      "URL": "nr",
-      "news": "asd",
-      "title": "dsa",
-      "date": "aas",
-      "text": "dds"
-    },
-    {
-      "URL": "\u043a\u0442\u043e",
-      "news": "12qdq",
-      "title": "qwe",
-      "date": "1244",
-      "text": "\u044f"
+      "title": ".page-title",
+      "date": ".date",
+      "text": ".news-detail"
     }
   ]
 }
