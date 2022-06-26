@@ -13,7 +13,8 @@ json_sites = {}
 
 
 def main_page(request):
-    al_company = Company.objects.all()
+    al_company = Company.objects.all().values_list('other_name')
+    print(al_company)
     if request.method == 'POST':
         form = Analyze(request.POST)
         if form.is_valid():
@@ -22,6 +23,12 @@ def main_page(request):
     else:
         form = Analyze()
     return render(request, 'main_page.html', {'user': request.user, 'company': al_company, 'form': form})
+
+
+def all_sites(request):
+    urlMassive = [i['URL'] for i in json_sites['sites']]
+    print(urlMassive)
+    return render(request, 'all_sites.html', {'sites': urlMassive})
 
 
 def add_site(request):
@@ -101,6 +108,8 @@ class CompanyUpdateView(UpdateView):
     template_name = 'company_update_page.html'
     fields = ['cat_id', 'name', 'phone', 'email', 'about', 'category']
     success_url = reverse_lazy('table')
+
+
 def company(request):
     al_company = Company.objects.all()
     return render(request, 'company_page.html', {'user': request.user, 'company': al_company})

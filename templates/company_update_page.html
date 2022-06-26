@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% extends 'main_page.html' %}
     <meta charset="UTF-8">
+    {% block name %}
     <title>Title</title>
+    {% endblock %}
 </head>
 <body>
+{% block content %}
     {% if request.user.is_authenticated %}
     <form method="post" enctype="multipart/form-data">
 
@@ -15,6 +19,6 @@
             {% else %}
             <meta http-equiv="refresh" content="0;{% url 'company' %}">
             {% endif %}
-
+{% endblock %}
 </body>
 </html>

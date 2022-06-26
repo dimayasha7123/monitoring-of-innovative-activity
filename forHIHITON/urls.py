@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 from project.views import table, main_page, add_site, TableUpdateView, delete_table, LoginViews, delete_company, \
-    TableAddView, CompanyAddView,company
+    TableAddView, CompanyAddView,company,all_sites
 
 urlpatterns = [
     path('admin/', admin.site.urls, ),
@@ -33,4 +33,5 @@ urlpatterns = [
     path('company/', company, name='company'),
     path('company/del/<int:pk>', delete_company, name='del_company'),
     path('company/add/', CompanyAddView.as_view(), name='add_company'),
+    path('all_site',all_sites,name='all_sites')
 ]

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% extends 'main_page.html' %}
     <meta charset="UTF-8">
+    {% block name %}
     <title>Title</title>
+    {% endblock %}
 </head>
 <body>
+{% block content %}
 <table >
     <thead>
         <tr>
@@ -45,6 +49,6 @@
         Добавить
     </a>
 {% endif %}
-
+{% endblock %}
 </body>
 </html>
