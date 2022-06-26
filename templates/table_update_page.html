@@ -9,21 +9,16 @@
 </head>
 <body>
 {% block content %}
-{% if request.user.is_authenticated %}
-<form method="post" enctype="multipart/form-data">
+    {% if request.user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data">
+
     {% csrf_token %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-7 col-sm-6">
-                {{ form.as_p }}
-                <input class="btn btn-secondary" type="submit" value="Изменить">
-            </div>
-        </div>
-    </div>
-</form>
-{% else %}
-<meta http-equiv="refresh" content="0;{% url 'table' %}">
-{% endif %}
+    {{ form.as_p }}
+        <input type="submit" value="Изменить">
+    </form>
+            {% else %}
+            <meta http-equiv="refresh" content="0;{% url 'table' %}">
+            {% endif %}
 
 {% endblock %}
 </body>
