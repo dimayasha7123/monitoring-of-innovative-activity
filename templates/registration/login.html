@@ -2,17 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    <link href="{% static 'bootstrap-5.1.3-examples/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet"
+          crossorigin="anonymous">
+    <script src="{% static 'bootstrap-5.1.3-examples/assets/dist/js/bootstrap.bundle.min.js' %}"
+            crossorigin="anonymous"></script>
+    <title>Вход</title>
 </head>
 <body>
+<br>
 <form method="post">
-                        <div class="form-group">
-
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-outline-success">Войти</button>
-
-                        </div>
-                        </form>
+    <div class="form-group">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-sm-6 mx-auto">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-success">Войти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>
