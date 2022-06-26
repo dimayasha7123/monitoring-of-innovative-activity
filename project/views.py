@@ -15,26 +15,26 @@ json_sites = {}
 
 
 def main_page(request):
-    al_company = Company.objects.all().values_list('other_name')
-    print(al_company)
     if request.method == 'POST':
         form = Analyze(request.POST)
         if form.is_valid():
-            ok, comp_name = parse_and_save(form.cleaned_data["URL"], form.cleaned_data["keywords"].split(','))
-            print(comp_name)
+            if form.cleaned_data["keywords"]:
+                ok, comp_name = parse_and_save(form.cleaned_data["URL"], form.cleaned_data["keywords"].split(','))
+            else:
+                ok, comp_name = parse_and_save(url=form.cleaned_data["URL"])
             if ok:
                 company_name = Company.objects.get(name=comp_name)
                 zip = get_zip_by_company_name(company_name)
                 excel = getTableExcel()
                 # return redirect('table')
                 return render(request, 'main_page.html',
-                              {'user': request.user, 'company': al_company, 'form': form, 'zip': zip, 'excel': excel})
+                              {'user': request.user, 'form': form, 'zip': zip, 'excel': excel})
             else:
                 pass
         # TODO err
     else:
         form = Analyze()
-    return render(request, 'main_page.html', {'user': request.user, 'company': al_company, 'form': form, 'zip': '', 'excel': ''})
+    return render(request, 'main_page.html', {'user': request.user, 'form': form, 'zip': '', 'excel': ''})
 
 
 import pandas as pd
@@ -58,7 +58,6 @@ def getTableExcel():
 
 def all_sites(request):
     urlMassive = [i['URL'] for i in json_sites['sites']]
-    print(urlMassive)
     return render(request, 'all_sites.html', {'sites': urlMassive})
 
 
@@ -75,7 +74,7 @@ def add_site(request):
                         json.dump(json_sites, j)
                     break
 
-        print(json_sites)
+        #print(json_sites)
         return redirect('main')
 
     else:

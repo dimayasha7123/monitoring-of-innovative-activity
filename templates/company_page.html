@@ -34,8 +34,13 @@
                 <td>email: {{ i.email }}, телефон: {{ i.phone }}</td>
                 <td>{{ i.about }}</td>
                 {% if user.is_authenticated %}
-                <td><a href="{% url 'update_company' i.pk %}"> Изменить</a>/
-                    <a href="{% url 'del_company' i.pk %}">Удалить</a>
+                <td>
+                    <p>
+                        <a class="btn btn-secondary" href="{% url 'update_company' i.pk %}"> Изменить</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-secondary" href="{%  url 'del_company' i.pk %}">Удалить</a>
+                    </p>
                     {% endif %}
             </tr>
             </tbody>

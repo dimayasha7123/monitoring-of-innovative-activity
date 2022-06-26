@@ -39,13 +39,14 @@ def get_zip_by_company_name(company_name: str) -> str:
     filtered_filenames = []
     
     for name in filenames:
-        if name.split('_')[0] == company_name:
+        if name.split('_')[0] == str(company_name):
             filtered_filenames.append(name)
+
 
     pipe = r.pipeline()
     
     for name in filtered_filenames:
-        if name != '': pipe.get(name)
+        pipe.get(name)
     pics = pipe.execute()
 
     zipname = f'files/{company_name}_{datetime.date(datetime.now())}.zip'

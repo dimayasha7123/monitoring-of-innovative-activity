@@ -15,7 +15,7 @@ class AddSiteForm(forms.Form):
 
 class Analyze(forms.Form):
     URL = forms.URLField(label='URL')
-    keywords = forms.CharField(label='keywords')
+    keywords = forms.CharField(label='keywords', required=False)
 
 
 class TableAnalyzeCompanyForm(ModelForm):

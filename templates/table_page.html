@@ -20,7 +20,9 @@
                 <td>Наименование заголовка новости</td>
                 <td>Ссылка на новость</td>
                 <td>Категория инвестиционной активности</td>
+                {% if user.is_authenticated %}
                 <td>Действие</td>
+                {% endif %}
             </tr>
             </thead>
             {% for i in table %}
@@ -36,11 +38,13 @@
                 <td>{{ i.category }}</td>
                 <td>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'update_table' i.pk %}"> Изменить</a>
-                    /<a href="{%  url 'del_table' i.id %}">Удалить</a>
+                    <p>
+                        <a class="btn btn-secondary" href="{% url 'update_table' i.pk %}"> Изменить</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-secondary" href="{%  url 'del_table' i.id %}">Удалить</a>
+                    </p>
                     {% endif %}
-                    /<a href="{%  url 'del_table' i.id %}">Скачать архив</a>
-                    /<a href="{%  url 'del_table' i.id %}">Экспорт</a>
                 </td>
 
             </tr>
