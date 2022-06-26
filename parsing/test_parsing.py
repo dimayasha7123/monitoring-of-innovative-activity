@@ -1,5 +1,5 @@
-from parse import parse
-from analyze import get_orgs_from_text, classify
+from parsing.parse import parse, parse_and_save
+from parsing.analyze import get_orgs_from_text, classify
 
 urls = [
     "https://orenburg.media/?p=94827",
@@ -19,10 +19,14 @@ urls = [
     #"https://ria56.ru/posts/v-abdulinskom-gorodskom-okruge-sdelan-akcent-na-modernizacii-infrastruktury-zhkx.htm"
 ]
 
-for s in urls:
-    code, d = parse(s)
-    print(d)
+def test():
+    for s in urls:
+        code, d = parse(s)
+        print(d)
 
+def test_save():
+    for s in urls:
+        parse_and_save(s)
 
 
 
