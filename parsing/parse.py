@@ -35,6 +35,7 @@ def find_org(orgs):
 
 
 def parse_and_save(url, keywords=None):
+    from screenshots.screenshots import make_screenshot
     code, result = parse(url, keywords)
     # print(result)
     if code:
@@ -47,10 +48,11 @@ def parse_and_save(url, keywords=None):
             p.name_title_news = result["title"]
             p.date_news =  result["date"]
             p.category = ", ".join(result["keywords"])
+            make_screenshot(p.company_name, p.category, p.url)
             p.save()
     else:
         print(result)
-    return code
+    return code, result
        
 
 def parse(url, keywords=None):

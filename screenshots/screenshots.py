@@ -35,18 +35,19 @@ def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
 
 def get_zip_by_company_name(company_name: str) -> str:
     filenames = [t.decode('utf8') for t in r.keys()]
-    filtered_filenames = []
+    filtered_filenames = filenames
     
-    for name in filenames:
-        if name.split('_')[0] == company_name:
-            filtered_filenames.append(name)
+    # for name in filtered_filenames:
+    #     if name.split('_')[0] == company_name:
+    #         filtered_filenames.append(name)
+
     pipe = r.pipeline()
     
     for name in filtered_filenames:
         if name != '': pipe.get(name)
     pics = pipe.execute()
 
-    zipname = f'files/{company_name}_{datetime.now()}.zip'
+    zipname = f'files/{company_name}_{datetime.date(datetime.now())}.zip'
     with ZipFile(zipname, 'w') as tzip:
         for i in range(0, len(pics)):
             tzip.writestr(filtered_filenames[i], BytesIO(pics[i]).getvalue())

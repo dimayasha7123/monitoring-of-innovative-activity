@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 import json
 from django.contrib.auth.views import LoginView
 import os
+from parsing.parse import parse_and_save
+from screenshots.screenshots import get_zip_by_company_name
 
 # Create your views here.
 
@@ -18,12 +20,39 @@ def main_page(request):
     if request.method == 'POST':
         form = Analyze(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-            return redirect('main')
+            ok, result = parse_and_save(form.cleaned_data["URL"], form.cleaned_data["keywords"].split(','))
+            if ok:
+                company_name = Company.objects.get(name=result["org"][0])
+                zip = get_zip_by_company_name(company_name)
+                excel = getTableExcel()
+                # return redirect('table')
+                return render(request, 'main_page.html',
+                              {'user': request.user, 'company': al_company, 'form': form, 'zip': zip, 'excel': excel})
+            else:
+                pass
+        # TODO err
     else:
         form = Analyze()
-    return render(request, 'main_page.html', {'user': request.user, 'company': al_company, 'form': form})
+    return render(request, 'main_page.html', {'user': request.user, 'company': al_company, 'form': form, 'zip': '', 'excel': ''})
 
+
+import pandas as pd
+from datetime import datetime
+
+def getTableExcel():
+    data_news = TableAnalyzeCompany.objects.raw('select date_news from project_tableanalyzecompany')
+    name_news = TableAnalyzeCompany.objects.raw('select name_news from project_tableanalyzecompany')
+    name_title_news = TableAnalyzeCompany.objects.raw('select name_title_news from project_tableanalyzecompany')
+    url = TableAnalyzeCompany.objects.raw('select url from project_tableanalyzecompany')
+    category = TableAnalyzeCompany.objects.raw('select category from project_tableanalyzecompany')
+
+    data = pd.DataFrame(
+        {TableAnalyzeCompany.date_news.verbose_name: data_news, TableAnalyzeCompany.name_news.verbose_name: name_news,
+         TableAnalyzeCompany.name_title_news.verbose_name: name_title_news, TableAnalyzeCompany.url.verbose_name: url,
+         TableAnalyzeCompany.category.verbose_name: category})
+    filename = 'files/created' + str(datetime.date(datetime.now())) + '.xlsx'
+    data.to_excel(filename, sheet_name='datasheet', index=False)
+    return filename
 
 def all_sites(request):
     urlMassive = [i['URL'] for i in json_sites['sites']]

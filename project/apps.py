@@ -7,7 +7,7 @@ class ProjectConfig(AppConfig):
     name = 'project'
 
     def ready(self):
-        import json
+        import json, parsing.parse, screenshots.screenshots
         from .views import json_sites
         with open('static/sites.json', 'r+') as j:
             json_sites.update( json.load(j))
