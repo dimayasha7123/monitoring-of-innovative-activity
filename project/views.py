@@ -6,8 +6,6 @@ from django.urls import reverse_lazy
 import json
 from django.contrib.auth.views import LoginView
 import os
-import pandas as pd
-from datetime import datetime
 
 # Create your views here.
 
@@ -54,17 +52,6 @@ def add_site(request):
 
     return render(request, 'add_site_page.html', {'form': form})
 
-def getTableExcel():
-    data_news = TableAnalyzeCompany.objects.raw('select date_news from project_tableanalyzecompany')
-    name_news = TableAnalyzeCompany.objects.raw('select name_news from project_tableanalyzecompany')
-    name_title_news = TableAnalyzeCompany.objects.raw('select name_title_news from project_tableanalyzecompany')
-    url = TableAnalyzeCompany.objects.raw('select url from project_tableanalyzecompany')
-    category = TableAnalyzeCompany.objects.raw('select category from project_tableanalyzecompany')
-
-    data = pd.DataFrame({TableAnalyzeCompany.date_news.verbose_name:data_news, TableAnalyzeCompany.name_news.verbose_name:name_news,
-                         TableAnalyzeCompany.name_title_news.verbose_name:name_title_news,TableAnalyzeCompany.url.verbose_name:url,
-                         TableAnalyzeCompany.category.verbose_name:category})
-    data.to_excel('files/created'+str(datetime.now())+'.xlsx', sheet_name='datasheet', index=False)
 
 def table(request):
     tac = TableAnalyzeCompany.objects.all()
