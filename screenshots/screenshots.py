@@ -8,6 +8,7 @@ from io import BytesIO
 from zipfile import ZipFile
 import yaml
 import os
+import json
 
 
 with open(os.path.abspath('screenshots/config.yml'), 'r') as file:
@@ -26,12 +27,16 @@ def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
         time.sleep(0.5)
         place_png = driver.get_full_page_screenshot_as_png()
         # place_png = place.screenshot_as_png
-        filename = f'{company_name}_{company_category}_{datetime.now()}.PNG'
+        filename_json = json.dumps({
+            'company_name': company_name,
+            'keywords': [company_category.split(", ")],
+            'time_stamp': str(datetime.now())
+            })
     
     with BytesIO() as output:
         im = Image.open(BytesIO(place_png))
         im.save(output, format='png')
-        r.set(filename, output.getvalue())
+        r.set(filename_json, output.getvalue())
         r.bgsave()
 
     return True
@@ -42,7 +47,8 @@ def get_zip_by_company_name(company_name: str) -> str:
     filtered_filenames = []
     
     for name in filenames:
-        if name.split('_')[0] == str(company_name):
+        unmarsheld = json.loads(name)
+        if unmarsheld['company_name'] == str(company_name):
             filtered_filenames.append(name)
 
 
@@ -55,8 +61,16 @@ def get_zip_by_company_name(company_name: str) -> str:
     zipname = f'files/{company_name}_{datetime.date(datetime.now())}.zip'
     with ZipFile(zipname, 'w') as tzip:
         for i in range(0, len(pics)):
-            tzip.writestr(filtered_filenames[i], BytesIO(pics[i]).getvalue())
+            tzip.writestr(f'screenshot_{i}.PNG', BytesIO(pics[i]).getvalue())
     return zipname
+
+
+if __name__ == '__main__':
+    company_name = 'МЦЭ-Инжиниринг'
+    company_category = 'красавцы'
+    url = 'https://mcee.ru/tpost/of551zcy81-20-maya-2021'
+    make_screenshot(company_name, company_category, url)
+    print(get_zip_by_company_name(company_name)) 
 
 
 # Code for testing
