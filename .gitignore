@@ -1,0 +1,10 @@
+.idea
+geckodriver.log
+pyvenv.cfg
+bin
+lib
+__pycache__
+venv
+files/*
+geckodriver.lo
+*.sqlite3
