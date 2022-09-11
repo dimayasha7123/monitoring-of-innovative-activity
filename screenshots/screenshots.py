@@ -1,3 +1,4 @@
+from ast import keyword
 from datetime import datetime
 import time
 from selenium import webdriver
@@ -29,7 +30,7 @@ def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
         # place_png = place.screenshot_as_png
         filename_json = json.dumps({
             'company_name': company_name,
-            'keywords': [company_category.split(", ")],
+            'keywords': company_category.split(", "),
             'time_stamp': str(datetime.now())
             })
     
@@ -65,12 +66,39 @@ def get_zip_by_company_name(company_name: str) -> str:
     return zipname
 
 
+def get_zip_by_category(category: list) -> str:
+    filenames = [t.decode('utf8') for t in r.keys()]
+    filtered_filenames = []
+    
+    for name in filenames:
+        unmarsheld = json.loads(name)
+        keywords = unmarsheld['keywords']
+        print(keywords) #testing
+        for cat in category:
+            print(cat) #testing
+            if cat in keywords:
+                filtered_filenames.append(name)          
+
+    pipe = r.pipeline()
+    
+    for name in filtered_filenames:
+        pipe.get(name)
+    pics = pipe.execute()
+
+    zipname = f'files/{"_".join(category)}_{datetime.date(datetime.now())}.zip'
+    with ZipFile(zipname, 'w') as tzip:
+        for i in range(0, len(pics)):
+            tzip.writestr(f'screenshot_{i}.PNG', BytesIO(pics[i]).getvalue())
+    return zipname
+
+
 if __name__ == '__main__':
     company_name = 'МЦЭ-Инжиниринг'
-    company_category = 'красавцы'
+    company_category = 'молодцы'
     url = 'https://mcee.ru/tpost/of551zcy81-20-maya-2021'
     make_screenshot(company_name, company_category, url)
-    print(get_zip_by_company_name(company_name)) 
+    print(get_zip_by_company_name(company_name))
+    print(get_zip_by_category(["молодцы", "ультра-молодцы"])) 
 
 
 # Code for testing
