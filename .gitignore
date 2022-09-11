@@ -4,4 +4,6 @@ pyvenv.cfg
 bin
 lib
 __pycache__
+venv
 files/*
+geckodriver.log

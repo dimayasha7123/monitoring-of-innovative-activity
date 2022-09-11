@@ -12,6 +12,9 @@ import os
 
 with open(os.path.abspath('screenshots/config.yml'), 'r') as file:
     db_settings = yaml.safe_load(file)
+    # create ./files if not exists
+    if not os.path.exists('./files'):
+        os.mkdir('./files')
 
 r = redis.StrictRedis(host=db_settings['host'], port=db_settings['port'], db=db_settings['db'])
 
