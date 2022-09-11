@@ -73,9 +73,7 @@ def get_zip_by_category(category: list) -> str:
     for name in filenames:
         unmarsheld = json.loads(name)
         keywords = unmarsheld['keywords']
-        print(keywords) #testing
         for cat in category:
-            print(cat) #testing
             if cat in keywords:
                 filtered_filenames.append(name)          
 
