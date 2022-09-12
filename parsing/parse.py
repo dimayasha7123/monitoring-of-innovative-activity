@@ -50,9 +50,9 @@ def parse_and_save(url, keywords=None):
             p.name_title_news = result["title"]
             p.date_news =  result["date"]
             p.category = ", ".join(result["keywords"])
-            make_screenshot(p.company_name, p.category, p.url)
+            make_screenshot(str(p.company_name), p.category, p.url)
             p.save()
-            return code, p.company_name
+            return code, str(p.company_name)
     else:
         print(result)
     return code, result

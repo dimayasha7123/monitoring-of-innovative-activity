@@ -11,29 +11,43 @@ import yaml
 import os
 import json
 
+DEBUG = False
 
-with open(os.path.abspath('screenshots/config.yml'), 'r') as file:
+with open(os.path.abspath('screenshots/config.yml' if DEBUG else 'screenshots/docker_config.yml'), 'r') as file:
     db_settings = yaml.safe_load(file)
     # create ./files if not exists
     if not os.path.exists('./files'):
         os.mkdir('./files')
 
-r = redis.StrictRedis(host=db_settings['host'], port=db_settings['port'], db=db_settings['db'])
+r = redis.StrictRedis(
+    host=db_settings['host'], port=db_settings['port'], db=db_settings['db'])
 
 
-def make_screenshot(company_name: str, company_category: str, url: str) -> bool: 
-    with webdriver.Firefox() as driver:
-        driver.get(url)
-        # place = driver.find_element(By.XPATH, f"//*[contains(text(),'{company_name}')]")
-        time.sleep(0.5)
-        place_png = driver.get_full_page_screenshot_as_png()
-        # place_png = place.screenshot_as_png
-        filename_json = json.dumps({
-            'company_name': company_name,
-            'keywords': company_category.split(", "),
-            'time_stamp': str(datetime.now())
-            })
-    
+def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
+
+    if DEBUG:
+        with webdriver.Firefox() as driver:
+            driver.get(url)
+            time.sleep(0.5)
+            place_png = driver.get_full_page_screenshot_as_png()
+            # place = driver.find_element(
+            #     By.XPATH, f"//*[contains(text(),'{company_name}')]")
+            # place_png = driver.get_full_page_screenshot_as_png()
+            # place_png = place.screenshot_as_png
+    else:
+        with webdriver.Remote(command_executor='http://firefoxdriver:4444/wd/hub',
+                          options=webdriver.FirefoxOptions()) as driver:
+            driver.set_window_size(1920, 1920*2)
+            driver.get(url)
+            time.sleep(0.5)
+            place_png = driver.get_screenshot_as_png()
+
+    filename_json = json.dumps({
+        'company_name': company_name,
+        'keywords': company_category.split(", "),
+        'time_stamp': str(datetime.now())
+    })
+
     with BytesIO() as output:
         im = Image.open(BytesIO(place_png))
         im.save(output, format='png')
@@ -46,15 +60,14 @@ def make_screenshot(company_name: str, company_category: str, url: str) -> bool:
 def get_zip_by_company_name(company_name: str) -> str:
     filenames = [t.decode('utf8') for t in r.keys()]
     filtered_filenames = []
-    
+
     for name in filenames:
         unmarsheld = json.loads(name)
         if unmarsheld['company_name'] == str(company_name):
             filtered_filenames.append(name)
 
-
     pipe = r.pipeline()
-    
+
     for name in filtered_filenames:
         pipe.get(name)
     pics = pipe.execute()
@@ -69,16 +82,16 @@ def get_zip_by_company_name(company_name: str) -> str:
 def get_zip_by_category(category: list) -> str:
     filenames = [t.decode('utf8') for t in r.keys()]
     filtered_filenames = []
-    
+
     for name in filenames:
         unmarsheld = json.loads(name)
         keywords = unmarsheld['keywords']
         for cat in category:
             if cat in keywords:
-                filtered_filenames.append(name)          
+                filtered_filenames.append(name)
 
     pipe = r.pipeline()
-    
+
     for name in filtered_filenames:
         pipe.get(name)
     pics = pipe.execute()
@@ -96,7 +109,7 @@ if __name__ == '__main__':
     url = 'https://mcee.ru/tpost/of551zcy81-20-maya-2021'
     make_screenshot(company_name, company_category, url)
     print(get_zip_by_company_name(company_name))
-    print(get_zip_by_category(["молодцы", "ультра-молодцы"])) 
+    print(get_zip_by_category(["молодцы", "ультра-молодцы"]))
 
 
 # Code for testing
