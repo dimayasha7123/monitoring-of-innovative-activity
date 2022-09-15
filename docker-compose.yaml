@@ -10,6 +10,7 @@ services:
     depends_on:
       - redis
       - firefoxdriver
+    restart: always
   firefoxdriver:
     image: selenium/standalone-firefox:104.0-geckodriver-0.31-20220831
     ports:
